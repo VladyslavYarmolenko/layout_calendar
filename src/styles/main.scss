@@ -1,3 +1,71 @@
+@import "variables";
+
 body {
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+h1 {
+  visibility: hidden;
+  display: block;
+  height: 0;
+  margin: 0;
+}
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  width: $cellSize * 7 + $marginIntro * 7;
+}
+
+.calendar > div {
+  width: $cellSize;
+  height: $cellSize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: $marginIntro;
+  margin-bottom: $marginIntro;
+  border: 1px solid black;
+  box-sizing: border-box;
+  background-color: #eee;
+  transition: transform 0.5s;
+
+  &:hover {
+    background-color: pink;
+    cursor: pointer;
+    transform: translate(0, -20px);
+  }
+}
+
+@for $day from 1 through 31 {
+  .calendar > div:nth-child(#{$day})::after {
+    content: "#{$day}";
+  }
+}
+
+@for $i from 1 through 31 {
+  @for $k from 1 through 31 {
+    .calendar-#{$k} div:nth-child(#{$i}) {
+      @if $i > $k {
+        display: none;
+      }
+    }
+  }
+}
+
+@each $k, $day in $days {
+  @for $i from 1 through 31 {
+    @if $i == 1 {
+      .calendar-#{$day} div:nth-child(#{$i}) {
+        margin-left: ($cellSize + $marginIntro) * ($k - 1);
+      }
+    }
+  }
 }

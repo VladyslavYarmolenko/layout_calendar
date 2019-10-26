@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+}
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+
+.calendar > div {
+  height: 99px;
+  width: 99px;
+  border: 1 px solid black;
+}
